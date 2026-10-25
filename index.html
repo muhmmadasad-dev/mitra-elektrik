@@ -701,4 +701,234 @@
                 <div class="contact-details">
                     <p><strong>Nama Toko:</strong> Mitra Elektrik</p>
                     <p><strong>Lokasi:</strong> Sangatta, Kalimantan Timur</p>
-                    <p><strong>WhatsApp:</strong> Nomor
+                    <p><strong>WhatsApp:</strong> Nomor akan ditambahkan</p>
+                    <p><strong>Alamat:</strong> Alamat toko akan ditambahkan</p>
+
+                    <a
+                        href="#produk"
+                        class="contact-button"
+                        style="display: inline-block; margin-top: 12px;"
+                    >
+                        Lihat Katalog
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <a href="#beranda" class="logo" style="color: white;">
+                MITRA <span style="color: #c4e6d2;">ELEKTRIK</span>
+            </a>
+
+            <p>
+                © <span id="current-year"></span> Mitra Elektrik.
+                Hak cipta dilindungi.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        /*
+         * DATA CONTOH
+         * Nantinya akan kita ganti dengan data asli dari Excel kamu.
+         */
+
+        const categories = [
+            "Kabel",
+            "Penerangan",
+            "Proteksi",
+            "Instalasi Listrik",
+            "Kabel Ekstensi & Terminal",
+            "Peralatan Rumah Tangga",
+            "Kipas",
+            "Baterai",
+            "Tools",
+            "Alat Bangunan",
+            "Komponen Listrik"
+        ];
+
+        const products = [
+            {
+                name: "Kabel NYM 2 x 1,5 mm",
+                brand: "Contoh produk",
+                category: "Kabel",
+                description: "Contoh deskripsi kegunaan kabel.",
+                price: null,
+                image: ""
+            },
+            {
+                name: "Lampu LED",
+                brand: "Contoh produk",
+                category: "Penerangan",
+                description: "Contoh produk untuk kebutuhan penerangan.",
+                price: null,
+                image: ""
+            },
+            {
+                name: "MCB 1 Phase",
+                brand: "Contoh produk",
+                category: "Proteksi",
+                description: "Contoh produk perlindungan instalasi listrik.",
+                price: null,
+                image: ""
+            },
+            {
+                name: "Stopkontak",
+                brand: "Contoh produk",
+                category: "Instalasi Listrik",
+                description: "Contoh produk perlengkapan instalasi.",
+                price: null,
+                image: ""
+            }
+        ];
+
+        const categoryList = document.getElementById("category-list");
+        const productList = document.getElementById("product-list");
+        const searchInput = document.getElementById("search-product");
+        const categoryFilter = document.getElementById("filter-category");
+
+        function renderCategories() {
+            categoryList.innerHTML = categories.map((category, index) => `
+                <a href="#produk"
+                   class="category-card"
+                   data-category="${category}">
+                    <span class="category-number">
+                        ${String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <h3>${category}</h3>
+
+                    <p>Lihat produk &rarr;</p>
+                </a>
+            `).join("");
+
+            categoryFilter.innerHTML =
+                '<option value="">Semua Kategori</option>' +
+                categories.map(category => `
+                    <option value="${category}">${category}</option>
+                `).join("");
+
+            document.querySelectorAll(".category-card").forEach(card => {
+                card.addEventListener("click", () => {
+                    categoryFilter.value = card.dataset.category;
+                    renderProducts();
+                });
+            });
+        }
+
+        function formatPrice(price) {
+            if (price === null || price === undefined || price === "") {
+                return "Tanyakan harga";
+            }
+
+            return new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                maximumFractionDigits: 0
+            }).format(price);
+        }
+
+        function renderProducts() {
+            const keyword = searchInput.value.toLowerCase().trim();
+            const selectedCategory = categoryFilter.value;
+
+            const filteredProducts = products.filter(product => {
+                const matchesKeyword =
+                    product.name.toLowerCase().includes(keyword) ||
+                    product.brand.toLowerCase().includes(keyword);
+
+                const matchesCategory =
+                    !selectedCategory ||
+                    product.category === selectedCategory;
+
+                return matchesKeyword && matchesCategory;
+            });
+
+            if (filteredProducts.length === 0) {
+                productList.innerHTML = `
+                    <p class="empty-message">
+                        Produk tidak ditemukan. Coba kata kunci lain.
+                    </p>
+                `;
+                return;
+            }
+
+            productList.innerHTML = filteredProducts.map(product => {
+                const imageContent = product.image
+                    ? `<img src="${product.image}"
+                            alt="${product.name}"
+                            loading="lazy">`
+                    : `<span style="color:#167348;font-weight:700;">
+                            Foto produk segera ditambahkan
+                       </span>`;
+
+                const message = encodeURIComponent(
+                    `Halo Mitra Elektrik, saya ingin menanyakan produk ${product.name}.`
+                );
+
+                /*
+                 * Ganti nomor di bawah dengan nomor WhatsApp toko
+                 * menggunakan kode negara 62 tanpa tanda +.
+                 */
+
+                const whatsappNumber = "";
+
+                const whatsappLink = whatsappNumber
+                    ? `https://wa.me/${whatsappNumber}?text=${message}`
+                    : "#kontak";
+
+                return `
+                    <article class="product-card">
+                        <div class="product-image">
+                            ${imageContent}
+                        </div>
+
+                        <div class="product-info">
+                            <span class="product-category">
+                                ${product.category}
+                            </span>
+
+                            <h3>${product.name}</h3>
+
+                            <p style="font-size:12px;color:#68736c;">
+                                ${product.brand}
+                            </p>
+
+                            <p class="product-description">
+                                ${product.description}
+                            </p>
+
+                            <p class="product-price">
+                                ${formatPrice(product.price)}
+                            </p>
+
+                            <a class="product-contact"
+                               href="${whatsappLink}"
+                               ${whatsappNumber
+                                   ? 'target="_blank" rel="noopener noreferrer"'
+                                   : ''}>
+                                Tanya Produk
+                            </a>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        searchInput.addEventListener("input", renderProducts);
+        categoryFilter.addEventListener("change", renderProducts);
+
+        document.getElementById("current-year").textContent =
+            new Date().getFullYear();
+
+        renderCategories();
+        renderProducts();
+    </script>
+
+</body>
+</html>
+```
