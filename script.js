@@ -145,11 +145,11 @@ function tampilkanProduk() {
             <article class="product-card">
 
                 <div class="product-image">
-                    <div class="image-placeholder">
-                        Foto produk<br>
-                        segera ditambahkan
-                    </div>
-                </div>
+    ${produk.image
+        ? `<img src="${escapeHTML(produk.image)}" alt="${escapeHTML(nama)}" loading="lazy">`
+        : `<div class="image-placeholder">Foto produk belum tersedia</div>`
+    }
+</div>
 
                 <div class="product-info">
 
