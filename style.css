@@ -1,0 +1,22 @@
+/* Hyperlink pada bagian kontak */
+.contact-details a {
+  color: #167348;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  cursor: pointer;
+}
+
+/* Saat kursor diarahkan ke hyperlink */
+.contact-details a:hover {
+  color: #0b4f32;
+  text-decoration: underline;
+}
+
+/* Saat hyperlink dipilih menggunakan keyboard */
+.contact-details a:focus-visible {
+  color: #0b4f32;
+  text-decoration: underline;
+  outline: 2px solid #167348;
+  outline-offset: 3px;
+}
