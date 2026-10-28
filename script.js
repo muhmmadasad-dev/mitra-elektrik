@@ -31,8 +31,6 @@ function tampilkanKategori() {
     const daftarKategori = document.getElementById("category-list");
     const filterKategori = document.getElementById("filter-category");
 
-    if (!daftarKategori || !filterKategori) return;
-
     const kategori = [
         ...new Set(
             products
@@ -41,47 +39,59 @@ function tampilkanKategori() {
         )
     ].sort((a, b) => a.localeCompare(b, "id"));
 
-    daftarKategori.innerHTML = kategori.map((nama, index) => {
-        const jumlah = products.filter(
-            produk => produk.category === nama
-        ).length;
+    // Tampilkan kartu kategori jika berada di halaman Beranda
+    if (daftarKategori) {
+        daftarKategori.innerHTML = kategori.map((nama, index) => {
+            const jumlah = products.filter(
+                produk => produk.category === nama
+            ).length;
 
-        return `
-            <a href="#produk"
-               class="category-card"
-               data-kategori="${escapeHTML(nama)}">
+            return `
+                <a href="produk.html?kategori=${encodeURIComponent(nama)}"
+                   class="category-card"
+                   data-kategori="${escapeHTML(nama)}">
 
-                <span class="category-number">
-                    ${String(index + 1).padStart(2, "0")}
-                </span>
+                    <span class="category-number">
+                        ${String(index + 1).padStart(2, "0")}
+                    </span>
 
-                <h3>${escapeHTML(nama)}</h3>
+                    <h3>${escapeHTML(nama)}</h3>
 
-                <p>${jumlah} produk tersedia</p>
-            </a>
-        `;
-    }).join("");
+                    <p>${jumlah} produk tersedia</p>
+                </a>
+            `;
+        }).join("");
+    }
 
-    filterKategori.innerHTML =
-        '<option value="">Semua Kategori</option>' +
-        kategori.map(nama => `
-            <option value="${escapeHTML(nama)}">
-                ${escapeHTML(nama)}
-            </option>
-        `).join("");
-
-    daftarKategori.querySelectorAll("[data-kategori]").forEach(kartu => {
-        kartu.addEventListener("click", () => {
-            filterKategori.value = kartu.dataset.kategori;
-            tampilkanProduk();
-        });
-    });
+    // Isi dropdown jika berada di halaman Katalog
+    if (filterKategori) {
+        filterKategori.innerHTML =
+            '<option value="">Semua Kategori</option>' +
+            kategori.map(nama => `
+                <option value="${escapeHTML(nama)}">
+                    ${escapeHTML(nama)}
+                </option>
+            `).join("");
+    }
 }
 
 function tampilkanProduk() {
     const daftarProduk = document.getElementById("product-list");
     const kolomCari = document.getElementById("search-product");
     const filterKategori = document.getElementById("filter-category");
+
+    const params = new URLSearchParams(window.location.search);
+    const kategoriURL = params.get("kategori");
+
+    if (kategoriURL) {
+        const opsiValid = Array.from(filterKategori.options)
+            .some(opsi => opsi.value === kategoriURL);
+
+        if (opsiValid) {
+            filterKategori.value = kategoriURL;
+        }
+    }
+}
 
     if (!daftarProduk) return;
 
@@ -202,7 +212,20 @@ async function muatProduk() {
         products = await respons.json();
 
         tampilkanKategori();
+        const filterKategori = document.getElementById("filter-category");
+        const params = new URLSearchParams(window.location.search);
+        const kategoriURL = params.get("kategori");
+
+        if (filterKategori && kategoriURL) {
+            const opsiValid = Array.from(filterKategori.options)
+            .some(opsi => opsi.value === kategoriURL);
+
+            if (opsiValid) {
+                filterKategori.value = kategoriURL;
+            }
+        }
         tampilkanProduk();
+        tampilkanProdukUnggulan();
 
     } catch (error) {
         console.error(error);
@@ -235,3 +258,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
     muatProduk();
 });
+function tampilkanProdukUnggulan() {
+    const daftarProduk = document.getElementById("featured-products");
+
+    if (!daftarProduk) return;
+
+    const produkUnggulan = products
+        .filter(produk => Number(produk.price) > 0)
+        .slice(0, 4);
+
+    daftarProduk.innerHTML = produkUnggulan.map(produk => {
+        const nama = escapeHTML(produk.name);
+        const sku = escapeHTML(produk.sku);
+        const kategori = escapeHTML(produk.category);
+        const merek = escapeHTML(produk.brand);
+        const varian = escapeHTML(produk.variant);
+        const satuan = escapeHTML(produk.unit);
+
+        const keterangan = [merek, varian, satuan]
+            .filter(Boolean)
+            .join(" · ") || "Perlengkapan listrik";
+
+        const harga = formatRupiah(produk.price);
+
+        return `
+            <article class="product-card">
+                <div class="product-image">
+                    ${produk.image
+                        ? `<img src="${escapeHTML(produk.image)}" alt="${nama}" loading="lazy">`
+                        : `<div class="image-placeholder">Foto produk belum tersedia</div>`
+                    }
+                </div>
+
+                <div class="product-info">
+                    <span class="product-category">${kategori}</span>
+                    <h3>${nama}</h3>
+                    <p class="product-description">${keterangan}</p>
+                    <p class="product-price">${harga}</p>
+
+                    <a
+                        class="product-contact"
+                        href="${buatLinkWhatsApp({ name: produk.name, sku: produk.sku })}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Tanya / Pesan via WhatsApp
+                    </a>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
