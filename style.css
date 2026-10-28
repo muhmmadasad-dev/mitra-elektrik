@@ -110,20 +110,20 @@
         /* HERO */
 
         .hero {
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(7, 39, 27, 0.96),
-                    rgba(10, 58, 39, 0.82),
-                    rgba(10, 58, 39, 0.35)
-                ),
-                url("https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=2000&q=85")
-                center / cover no-repeat;
-            color: white;
-            min-height: 520px;
-            display: flex;
-            align-items: center;
-        }
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7, 39, 27, 0.92),
+            rgba(10, 58, 39, 0.72),
+            rgba(10, 58, 39, 0.35)
+        ),
+        url("images/foto-toko.jpg") center 0% / cover no-repeat;
+
+    color: white;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+}
 
         .hero-content {
             max-width: 680px;
@@ -287,7 +287,8 @@
         .product-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 20px;
+            gap: 24px;
+            align-items: stretch;
         }
 
         .product-card {
@@ -295,6 +296,9 @@
             border: 1px solid #e6ebe7;
             border-radius: 5px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .product-image {
@@ -550,4 +554,68 @@
             .about-panel {
                 padding: 28px;
             }
-        }
+        }/* Memperbaiki tampilan tombol Lihat Katalog */
+.contact-details a.contact-button {
+    background-color: #167348;
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-details a.contact-button:hover {
+    background-color: #0b4f32;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.contact-details a.contact-button:focus-visible {
+    background-color: #0b4f32;
+    color: #ffffff;
+    outline: 2px solid #167348;
+    outline-offset: 3px;
+}
+
+/* PERBAIKAN HEADER HALAMAN PRODUK */
+.header .header-container {
+    min-height: 82px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+}
+
+.header .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex: 1;
+    justify-content: center;
+}
+
+.header .nav-menu a {
+    white-space: nowrap;
+}
+
+.header .contact-button {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .header .header-container {
+        flex-wrap: wrap;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        gap: 16px;
+    }
+
+    .header .nav-menu {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+}
