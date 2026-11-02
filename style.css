@@ -286,8 +286,8 @@
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 18px;
             align-items: stretch;
         }
 
@@ -318,7 +318,9 @@
         }
 
         .product-info {
-            padding: 18px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-category {
@@ -330,9 +332,11 @@
         }
 
         .product-info h3 {
+            min-height: 2.8em;
             font-size: 16px;
-            margin: 8px 0;
-        }
+            margin: 5px 0 8px;
+            line-height: 1.4;
+}
 
         .product-description {
             color: var(--gray);
@@ -343,20 +347,24 @@
         .product-price {
             font-size: 16px;
             font-weight: 800;
-            margin-top: 14px;
+            margin-top: 8px;
         }
 
         .product-contact {
-            display: block;
-            text-align: center;
-            padding: 11px;
-            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 42px;
+            padding: 8px;
+            margin-top: 10px;
             border: 1px solid var(--green);
             color: var(--green);
-            border-radius: 3px;
+            border-radius: 4px;
             font-size: 13px;
             font-weight: 700;
-        }
+            white-space: nowrap;
+}
 
         .product-contact:hover {
             background: var(--green);
@@ -509,11 +517,22 @@
 
             .categories {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 12px;
+                gap: 10px;
             }
 
             .category-card {
-                padding: 18px 14px;
+                padding: 13px 12px;
+            }
+
+            .category-card h3 {
+                font-size: 14px;
+                line-height: 1.35;
+                margin-top: 8px;
+            }
+
+            .category-card p {
+                font-size: 12px;
+                margin-top: 4px;
             }
 
             .product-grid {
@@ -617,5 +636,571 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 16px;
+    }
+}
+css
+/* ========================================
+   PENCARIAN DAN FILTER KATALOG
+   MITRA ELEKTRIK
+======================================== */
+
+.product-controls {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) 240px auto;
+    gap: 12px;
+    align-items: center;
+    margin: 18px 0 28px;
+}
+
+#search-product,
+#filter-category {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid #dce3de;
+    border-radius: 5px;
+    background: #fff;
+    color: #202923;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+#search-product:focus,
+#filter-category:focus {
+    outline: none;
+    border-color: #167348;
+    box-shadow: 0 0 0 3px rgba(22, 115, 72, 0.12);
+}
+
+.reset-filter-button {
+    box-sizing: border-box;
+    height: 46px;
+    padding: 0 20px;
+    border: 1px solid #167348;
+    border-radius: 5px;
+    background: #fff;
+    color: #167348;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.reset-filter-button:hover {
+    background: #167348;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .product-controls {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #search-product,
+    #filter-category,
+    .reset-filter-button {
+        width: 100%;
+    }
+}
+
+/* Galeri foto produk */
+.product-image {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-main-image-wrap {
+    width: 100%;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+    flex-wrap: wrap;
+}
+
+.product-thumbnail {
+    width: 55px;
+    height: 55px;
+    padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.product-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-thumbnail.active {
+    border: 2px solid #087a4b;
+}
+
+/* =================================
+   CONTACT DETAILS - MITRA ELEKTRIK
+================================= */
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 32px;
+}
+
+.contact-details h3 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #14271f;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e5eee9;
+}
+
+.contact-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #718078;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.contact-value {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1f2a24;
+    text-decoration: none;
+}
+
+.contact-item a.contact-value {
+    color: #087b4b;
+    font-weight: 600;
+}
+
+.contact-item a.contact-value:hover {
+    text-decoration: underline;
+}
+
+.contact-catalog-button {
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+/* Tampilan mobile */
+@media (max-width: 768px) {
+    .contact-details {
+        padding: 24px;
+        gap: 15px;
+    }
+
+    .contact-details h3 {
+        font-size: 20px;
+    }
+
+    .contact-value {
+        font-size: 15px;
+    }
+}
+
+/* =================================
+   CONTACT SECTION - MITRA ELEKTRIK
+================================= */
+
+.contact-section {
+    position: relative;
+    overflow: hidden;
+    padding: 75px 0 55px;
+    background: #eaf5ef;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+    gap: 80px;
+}
+
+/* Bagian kiri */
+
+.contact-content .section-label {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #087b4b;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.contact-content h2 {
+    max-width: 560px;
+    margin: 0 0 20px;
+    color: #172b27;
+    font-size: clamp(34px, 3.5vw, 46px);
+    line-height: 1.16;
+    font-weight: 800;
+}
+
+.contact-description {
+    max-width: 540px;
+    margin: 0;
+    color: #5c7069;
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+/* Kartu kontak */
+
+.contact-card {
+    padding: 24px 32px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 75, 51, 0.06);
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(20, 65, 45, 0.06);
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.25s ease;
+}
+
+.contact-link:hover {
+    transform: translateX(5px);
+}
+
+.contact-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: #e8f5ee;
+    color: #087b4b;
+    font-size: 32px;
+    font-weight: 700;
+}
+.contact-icon svg {
+    display: block;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.contact-link-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.contact-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #788780;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.contact-link-content h3 {
+    margin: 0 0 7px;
+    color: #087b4b;
+    font-size: 19px;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+.contact-link-content p {
+    margin: 0;
+    color: #63736d;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.contact-arrow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: #e8f5ee;
+    color: #087b4b;
+    font-size: 29px;
+    transition: background 0.25s ease;
+}
+
+.contact-link:hover .contact-arrow {
+    background: #d2eadc;
+}
+
+.contact-divider {
+    height: 1px;
+    background: #e6eee9;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    .contact-section {
+        padding: 75px 0;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 42px;
+    }
+
+    .contact-content h2 {
+        max-width: 650px;
+    }
+}
+
+/* Tampilan mobile Contact */
+@media (max-width: 600px) {
+    .contact-section {
+        padding: 55px 0;
+    }
+
+    .contact-card {
+        padding: 16px 20px;
+        border-radius: 16px;
+    }
+
+    .contact-link {
+        gap: 14px;
+        padding: 22px 0;
+    }
+
+    .contact-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 12px;
+        font-size: 28px;
+    }
+
+    .contact-link-content h3 {
+        font-size: 16px;
+    }
+
+    .contact-link-content p {
+        font-size: 13px;
+    }
+
+    .contact-arrow {
+        width: 32px;
+        height: 32px;
+        font-size: 25px;
+    }
+}
+
+/* PROMO BANNER */
+.promo-banner {
+    width: 80%;
+    max-width: 1100px;
+    margin: 32px auto 48px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.promo-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .promo-banner {
+        width: 100%;
+        margin: 24px auto 32px;
+    }
+}
+
+/* =====================================
+   LIGHTBOX FOTO PRODUK
+===================================== */
+
+#product-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.90);
+    padding: 60px;
+}
+
+#product-lightbox.active {
+    display: flex;
+}
+
+.lightbox-image {
+    max-width: 90%;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+}
+
+.lightbox-close {
+    top: 20px;
+    right: 25px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 32px;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.lightbox-prev {
+    left: 25px;
+}
+
+.lightbox-next {
+    right: 25px;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    font-size: 14px;
+}
+
+.product-main-image {
+    cursor: zoom-in;
+}
+
+@media (max-width: 600px) {
+    #product-lightbox {
+        padding: 20px;
+    }
+
+    .lightbox-image {
+        max-width: 100%;
+        max-height: 75vh;
+    }
+
+    .lightbox-prev {
+        left: 8px;
+    }
+
+    .lightbox-next {
+        right: 8px;
+    }
+}
+
+/* =================================
+   TAMPILAN FOTO PRODUK - PORTRAIT
+================================= */
+
+.product-card {
+    background: #ffffff;
+}
+
+.product-image {
+    height: auto;
+    background: #ffffff;
+    gap: 0;
+}
+
+.product-main-image-wrap {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    padding: 8px;
+    overflow: hidden;
+}
+
+.product-main-image {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    object-fit: contain;
+    cursor: zoom-in;
+}
+
+.product-thumbnails {
+    display: none;
+}
+
+.products-section {
+    background: #ffffff;
+}
+
+/* PERBAIKAN FOTO PRODUK KHUSUS HP */
+@media (max-width: 600px) {
+    .product-main-image-wrap {
+        height: 120px !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+        padding: 8px;
+    }
+
+    .product-main-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 0;
     }
 }
