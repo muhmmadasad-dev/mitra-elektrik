@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Katalog Produk | Mitra Elektrik</title>
+
+    <meta name="description" content="Lihat katalog produk perlengkapan listrik Mitra Elektrik.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+    <div class="container navbar">
+        <a href="index.html" class="logo">
+            MITRA <span>ELEKTRIK</span>
+        </a>
+
+        <nav class="nav-menu">
+            <a href="index.html">Beranda</a>
+            <a href="index.html#kategori">Kategori</a>
+            <a href="produk.html">Produk</a>
+            <a href="index.html#tentang">Tentang Kami</a>
+        </nav>
+
+        <a href="https://wa.me/6282240000226"
+           class="contact-button"
+           target="_blank"
+           rel="noopener noreferrer">
+            Hubungi Kami
+        </a>
+    </div>
+</header>
+
+    <main>
+        <section id="produk" class="products-section">
+            <div class="container">
+                <p class="section-label">KATALOG MITRA ELEKTRIK</p>
+                <h1>Semua Produk</h1>
+
+                <p class="section-description">
+                    Cari produk berdasarkan nama atau pilih kategori
+                    untuk menemukan barang yang kamu perlukan.
+                </p>
+
+                    </div><div class="product-controls">
+                    <input
+                        type="search"
+                        id="search-product"[
+                        placeholder="Cari nama produk..."
+                        aria-label="Cari produk">
+                        
+                    <select id="filter-category" aria-label="Filter kategori">
+                        <option value="">Semua Kategori</option>
+                    </select>
+                    
+                    <button type="button" id="reset-filter" class="reset-filter-button">
+                        Reset Filter
+                    </button>
+                </div>
+
+                <div id="product-list" class="product-grid"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <a href="index.html" class="logo">
+                MITRA <span>ELEKTRIK</span>
+            </a>
+
+            <p>© 2026 Mitra Elektrik. Hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+</html>
